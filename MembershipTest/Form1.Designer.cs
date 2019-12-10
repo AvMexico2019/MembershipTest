@@ -39,6 +39,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.listBoxUsuariosEncontrados = new System.Windows.Forms.ListBox();
             this.buttonBorraUsuario = new System.Windows.Forms.Button();
+            this.buttonAgregaSistema = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxAplicaciones
@@ -140,11 +141,22 @@
             this.buttonBorraUsuario.UseVisualStyleBackColor = true;
             this.buttonBorraUsuario.Click += new System.EventHandler(this.buttonBorraUsuario_Click);
             // 
+            // buttonAgregaSistema
+            // 
+            this.buttonAgregaSistema.Location = new System.Drawing.Point(635, 56);
+            this.buttonAgregaSistema.Name = "buttonAgregaSistema";
+            this.buttonAgregaSistema.Size = new System.Drawing.Size(75, 23);
+            this.buttonAgregaSistema.TabIndex = 12;
+            this.buttonAgregaSistema.Text = "AgreSis";
+            this.buttonAgregaSistema.UseVisualStyleBackColor = true;
+            this.buttonAgregaSistema.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonAgregaSistema);
             this.Controls.Add(this.buttonBorraUsuario);
             this.Controls.Add(this.listBoxUsuariosEncontrados);
             this.Controls.Add(this.label5);
@@ -176,6 +188,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox listBoxUsuariosEncontrados;
         private System.Windows.Forms.Button buttonBorraUsuario;
+        private System.Windows.Forms.Button buttonAgregaSistema;
     }
 }
 

@@ -18,6 +18,7 @@ namespace MembershipTest
         List<Usuarios> ListaUsuarios = new List<Usuarios>();
         List<int> RolesUsuario = new List<int>();
         int UsuarioSeleccionado = -1;
+        int AppSeleccionada = -1;
 
         public Form1()
         {
@@ -26,6 +27,7 @@ namespace MembershipTest
             textBoxUsuarioBuscado.Enabled = false;
             listBoxRoles.Enabled = false;
             listBoxUsuariosEncontrados.Enabled = false;
+            buttonAgregaSistema.Enabled = false;
         }
 
         void LlenaAplicaciones()
@@ -45,7 +47,7 @@ namespace MembershipTest
 
         private void comboBoxAplicaciones_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int AppSeleccionada = ListaApps[comboBoxAplicaciones.SelectedIndex].IDApplication;
+            AppSeleccionada = ListaApps[comboBoxAplicaciones.SelectedIndex].IDApplication;
             textBoxUsuarioBuscado.Enabled = true;
             MEFDLL.MembershipEntities ctx = new MEFDLL.MembershipEntities();
             var roles = from rol in ctx.Role where rol.IDApplication == AppSeleccionada
@@ -60,6 +62,7 @@ namespace MembershipTest
                 listBoxRoles.Items.Add(rol.RoleName + "(" + rol.IDRole + ")");
                 ListaRoles.Add(rol.IDRole, new AppRols { IDRole = rol.IDRole, IDApplication = rol.IDApplication, RoleName = rol.RoleName });
             }
+            
         }
 
         private void textBoxUsuarioBuscado_TextChanged(object sender, EventArgs e)
@@ -100,6 +103,9 @@ namespace MembershipTest
                 else
                     listBoxRolesUsuario.Items.Add("rol " + rolUser.IDRole);
             }
+            var TieneUsuarioApp = ctx.Membership.Where(r => r.IDUser == UsuarioSeleccionado && r.IDApplication == AppSeleccionada).FirstOrDefault();
+            
+            if (TieneUsuarioApp == null) buttonAgregaSistema.Enabled = true; else buttonAgregaSistema.Enabled = false;
         }
 
         private void listBoxRoles_SelectedIndexChanged(object sender, EventArgs e)
@@ -142,10 +148,6 @@ namespace MembershipTest
                         listBoxRolesUsuario.Items.Add("rol " + rolUser.IDRole);
                 }
             }
-             
-            //MEFDLL.MembershipEntities ctx = new MEFDLL.MembershipEntities();
-          
-           
         }
 
         private void listBoxRolesUsuario_SelectedIndexChanged(object sender, EventArgs e)
@@ -166,6 +168,17 @@ namespace MembershipTest
                 }
             }
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (MEFDLL.MembershipEntities ctxUpdate = new MEFDLL.MembershipEntities())
+            {
+                var AgregaSistema = ctxUpdate.Set<MEFDLL.Membership>();
+                AgregaSistema.Add(new MEFDLL.Membership { IDUser = UsuarioSeleccionado, IDApplication = AppSeleccionada, IsApproved = true });      
+                ctxUpdate.SaveChanges();
+                buttonAgregaSistema.Enabled = false;
+            }
         }
     }
 }
