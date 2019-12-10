@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MembershipTest", "MembershipTest\MembershipTest.csproj", "{BDD417D7-5A78-4F60-BCE2-314964EA8E7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MEFDLL", "MEFDLL\MEFDLL.csproj", "{74C993C7-B668-477C-99FE-33D28E63F4DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{BDD417D7-5A78-4F60-BCE2-314964EA8E7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDD417D7-5A78-4F60-BCE2-314964EA8E7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDD417D7-5A78-4F60-BCE2-314964EA8E7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74C993C7-B668-477C-99FE-33D28E63F4DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74C993C7-B668-477C-99FE-33D28E63F4DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74C993C7-B668-477C-99FE-33D28E63F4DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74C993C7-B668-477C-99FE-33D28E63F4DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
