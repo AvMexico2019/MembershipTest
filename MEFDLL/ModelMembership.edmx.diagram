@@ -4,15 +4,68 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7589f4b3bca5451b97fe756e1949a871" Name="Diagram1" ZoomLevel="67">
-        <EntityTypeShape EntityType="MembershipModel.Application" Width="1.5" PointX="1.5" PointY="15.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="MembershipModel.Role" Width="1.5" PointX="0.75" PointY="11.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="MembershipModel.User" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="MembershipModel.UserInRole" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+      <Diagram DiagramId="fcad3ee8f36b408c98963a35b6967711" Name="Diagram1">
+        <EntityTypeShape EntityType="MembershipModel.C_Applications" Width="1.5" PointX="8.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Application" Width="1.5" PointX="3.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Bitacora" Width="1.5" PointX="16" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.BitacoraError" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Cat_ContentModelAlfresco" Width="1.5" PointX="6" PointY="42.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.CatAreaAdscripcion" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.CatBitacoraAccion" Width="1.5" PointX="13.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.CatMenu" Width="1.5" PointX="2.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.DatosFiscales" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Domicilio" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Membership" Width="1.5" PointX="5.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Memberships" Width="1.5" PointX="11" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Operation" Width="1.5" PointX="6" PointY="39" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Profiles" Width="1.5" PointX="15.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Rel_Identificacion" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Rel_RoleContentModelAlfresco" Width="1.5" PointX="8.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Rel_UserDomicilio" Width="1.5" PointX="8.25" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Rel_UserRL" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.RepresentanteLegal" Width="1.5" PointX="3" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Role" Width="1.5" PointX="6" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.RoleOperation" Width="1.5" PointX="8.25" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Roles" Width="1.5" PointX="11" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Telefono" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.User" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.UserConfirmation" Width="1.5" PointX="5.25" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.UserInRole" Width="1.5" PointX="8.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.Users" Width="1.5" PointX="13.25" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.UserSession" Width="1.5" PointX="5.25" PointY="35.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.REP_FR_INM" Width="1.5" PointX="13.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.REPORTE_PDR" Width="1.5" PointX="10.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.user_password" Width="1.5" PointX="12.75" PointY="16.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.user_password2" Width="1.5" PointX="0.75" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MembershipModel.usuario_correo_20160502" Width="1.5" PointX="10.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="MembershipModel.MembershipApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.RoleApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.UserApplication" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Membership_Application" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Operation_Application" ManuallyRouted="false" />
         <AssociationConnector Association="MembershipModel.FK_Role_Application" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Bitacora_CatBitacoraAccion" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.IdContentModelA_R" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_AreaAdscripcion_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.Fk_IdUser2" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Rel_UserDomicilio_Domicilio" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Membership_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.MembershipUser" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_RoleOperation_Operation" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.UserProfile" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.idRole_R" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Rel_UserDomicilio_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Rel_UserRL_RepresentanteLegal" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_Rel_UserRL_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_RoleOperation_Role" ManuallyRouted="false" />
         <AssociationConnector Association="MembershipModel.FK_UserInRole_Role1" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.Fk_IdUser_Tel" ManuallyRouted="false" />
         <AssociationConnector Association="MembershipModel.FK_User_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_UserConfirmation_User" ManuallyRouted="false" />
         <AssociationConnector Association="MembershipModel.FK_UserInRole_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.FK_UserSession_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MembershipModel.UsersInRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

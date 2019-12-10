@@ -25,9 +25,39 @@ namespace MEFDLL
             throw new UnintentionalCodeFirstException();
         }
     
+        public DbSet<C_Applications> C_Applications { get; set; }
         public DbSet<Application> Application { get; set; }
+        public DbSet<Bitacora> Bitacora { get; set; }
+        public DbSet<BitacoraError> BitacoraError { get; set; }
+        public DbSet<Cat_ContentModelAlfresco> Cat_ContentModelAlfresco { get; set; }
+        public DbSet<CatAreaAdscripcion> CatAreaAdscripcion { get; set; }
+        public DbSet<CatBitacoraAccion> CatBitacoraAccion { get; set; }
+        public DbSet<CatMenu> CatMenu { get; set; }
+        public DbSet<DatosFiscales> DatosFiscales { get; set; }
+        public DbSet<Domicilio> Domicilio { get; set; }
+        public DbSet<Membership> Membership { get; set; }
+        public DbSet<Memberships> Memberships { get; set; }
+        public DbSet<Operation> Operation { get; set; }
+        public DbSet<Profiles> Profiles { get; set; }
+        public DbSet<Rel_Identificacion> Rel_Identificacion { get; set; }
+        public DbSet<Rel_RoleContentModelAlfresco> Rel_RoleContentModelAlfresco { get; set; }
+        public DbSet<Rel_UserDomicilio> Rel_UserDomicilio { get; set; }
+        public DbSet<Rel_UserRL> Rel_UserRL { get; set; }
+        public DbSet<RepresentanteLegal> RepresentanteLegal { get; set; }
         public DbSet<Role> Role { get; set; }
+        public DbSet<RoleOperation> RoleOperation { get; set; }
+        public DbSet<Roles> Roles { get; set; }
+        public DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public DbSet<Telefono> Telefono { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<UserConfirmation> UserConfirmation { get; set; }
         public DbSet<UserInRole> UserInRole { get; set; }
+        public DbSet<Users> Users { get; set; }
+        public DbSet<UserSession> UserSession { get; set; }
+        public DbSet<REP_FR_INM> REP_FR_INM { get; set; }
+        public DbSet<REPORTE_PDR> REPORTE_PDR { get; set; }
+        public DbSet<user_password> user_password { get; set; }
+        public DbSet<user_password2> user_password2 { get; set; }
+        public DbSet<usuario_correo_20160502> usuario_correo_20160502 { get; set; }
     }
 }

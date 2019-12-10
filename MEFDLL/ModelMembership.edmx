@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="MembershipModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="235" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
         <EntityType Name="Application">
           <Key>
             <PropertyRef Name="IDApplication" />
@@ -18,6 +26,388 @@
           <Property Name="DefaultExterno" Type="bit" Nullable="false" />
           <Property Name="Visible" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Bitacora">
+          <Key>
+            <PropertyRef Name="idBitacora" />
+          </Key>
+          <Property Name="idBitacora" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAccion" Type="tinyint" />
+          <Property Name="nbUsuarioModifico" Type="varchar" MaxLength="200" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="datoAnterior" Type="varchar(max)" />
+          <Property Name="datoNuevo" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="BitacoraError">
+          <Key>
+            <PropertyRef Name="IdBitacoraError" />
+          </Key>
+          <Property Name="IdBitacoraError" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mensaje" Type="varchar(max)" Nullable="false" />
+          <Property Name="EsError" Type="bit" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="int" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cat_ContentModelAlfresco">
+          <Key>
+            <PropertyRef Name="IdContentModelA" />
+          </Key>
+          <Property Name="IdContentModelA" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DescripcionContentModel" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="EtiquetaContentModel" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="int" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CatAreaAdscripcion">
+          <Key>
+            <PropertyRef Name="IntIdAreaAdscripcion" />
+          </Key>
+          <Property Name="IntIdAreaAdscripcion" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FDVcNombre" Type="varchar" MaxLength="500" />
+          <Property Name="FDVcDescripcion" Type="varchar" MaxLength="500" />
+          <Property Name="FDBoActivo" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="CatBitacoraAccion">
+          <Key>
+            <PropertyRef Name="idCatBitacoraAccion" />
+          </Key>
+          <Property Name="idCatBitacoraAccion" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nbAccion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="CatMenu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="300" />
+          <Property Name="URL" Type="varchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="DatosFiscales">
+          <Key>
+            <PropertyRef Name="IdDatosFiscales" />
+          </Key>
+          <Property Name="IdDatosFiscales" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_IdUser" Type="int" Nullable="false" />
+          <Property Name="Escritura" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaEscritura" Type="date" Nullable="false" />
+          <Property Name="FolioReal" Type="varchar" MaxLength="100" />
+          <Property Name="NumeroLibro" Type="varchar" MaxLength="100" />
+          <Property Name="Tomo" Type="varchar" MaxLength="100" />
+          <Property Name="Volumen" Type="varchar" MaxLength="100" />
+          <Property Name="Foja" Type="varchar" MaxLength="100" />
+          <Property Name="Seccion" Type="varchar" MaxLength="100" />
+          <Property Name="NombreNotario" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="ApellidoPaternoNotario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApellidoMaternoNotario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NumeroNotario" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="CiudadNotario" Type="varchar" MaxLength="100" />
+          <Property Name="DistritoNotario" Type="varchar" MaxLength="100" />
+          <Property Name="IdGeneroNotario" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="FechaAlta" Type="date" Nullable="false" />
+          <Property Name="FechaBaja" Type="date" />
+          <Property Name="FechaUltimoCambio" Type="date" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+          <Property Name="RegistroValidado" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Membership.dbo.DESC_INMUEBLE' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="DESC_INMUEBLE">
+          <Property Name="num" Type="int" />
+          <Property Name="columna" Type="nvarchar" MaxLength="100" />
+          <Property Name="tipo_dato" Type="nvarchar" MaxLength="100" />
+          <Property Name="required" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Membership.dbo.Destino de OLE DB' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Destino de OLE DB">
+          <Property Name="IDUser" Type="int" />
+          <Property Name="UserName" Type="varchar" MaxLength="256" />
+          <Property Name="Nombre" Type="varchar" MaxLength="300" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="100" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="100" />
+          <Property Name="Cargo" Type="varchar" MaxLength="100" />
+          <Property Name="Telefono" Type="varchar" MaxLength="100" />
+          <Property Name="IsADUser" Type="bit" />
+          <Property Name="Password" Type="varchar" MaxLength="128" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
+          <Property Name="Deleted" Type="bit" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="IsLockedOut" Type="bit" />
+          <Property Name="IdInstitucion" Type="int" />
+          <Property Name="IdSector" Type="int" />
+          <Property Name="Domicilio" Type="varchar" MaxLength="1000" />
+          <Property Name="Curp" Type="varchar" MaxLength="18" />
+          <Property Name="Rfc" Type="varchar" MaxLength="13" />
+        </EntityType>-->
+        <EntityType Name="Domicilio">
+          <Key>
+            <PropertyRef Name="IdDomicilio" />
+          </Key>
+          <Property Name="IdDomicilio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Calle" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NumeroExterior" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="NumeroInterior" Type="varchar" MaxLength="25" />
+          <Property Name="IdCP" Type="int" />
+          <Property Name="CP" Type="char" MaxLength="5" />
+          <Property Name="IdLocalidad" Type="int" />
+          <Property Name="Localidad" Type="varchar" MaxLength="100" />
+          <Property Name="IdColonia" Type="int" />
+          <Property Name="Colonia" Type="varchar" MaxLength="100" />
+          <Property Name="IdPais" Type="int" Nullable="false" />
+          <Property Name="IdEstado" Type="int" Nullable="false" />
+          <Property Name="IdMunicipio" Type="int" Nullable="false" />
+          <Property Name="Referencias" Type="varchar" MaxLength="500" />
+          <Property Name="FechaAlta" Type="date" Nullable="false" />
+          <Property Name="FechaBaja" Type="date" />
+          <Property Name="FechaUltimoCambio" Type="date" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+          <Property Name="RegistroValidado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="IDMembership" />
+          </Key>
+          <Property Name="IDMembership" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDApplication" Type="int" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="Comment" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Memberships">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="PasswordFormat" Type="int" Nullable="false" />
+          <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="256" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="128" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLockoutDate" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowsStart" Type="datetime" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="IDOperation" />
+          </Key>
+          <Property Name="IDOperation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OperationName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IDApplication" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IDExterno" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Membership.dbo.OperationesHistorico' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="OperationesHistorico">
+          <Property Name="IDOperation" Type="int" />
+          <Property Name="OperationName" Type="varchar" MaxLength="100" />
+          <Property Name="IDApplication" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="IDExterno" Type="varchar" MaxLength="50" />
+          <Property Name="FechaModif" Type="datetime" />
+        </EntityType>-->
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PropertyNames" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="PropertyValueStrings" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="PropertyValueBinary" Type="image" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rel_Identificacion">
+          <Key>
+            <PropertyRef Name="IdRelIdentificacion" />
+          </Key>
+          <Property Name="IdRelIdentificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTipoRel" Type="int" Nullable="false" />
+          <Property Name="Fk_IdRelRegistro" Type="int" Nullable="false" />
+          <Property Name="FK_IdIdentificacionExpide" Type="int" Nullable="false" />
+          <Property Name="NumeroIdentificacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="int" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rel_RoleContentModelAlfresco">
+          <Key>
+            <PropertyRef Name="IdRoleContentModel" />
+          </Key>
+          <Property Name="IdRoleContentModel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_IdContentModelA" Type="int" Nullable="false" />
+          <Property Name="Fk_idRole" Type="int" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="int" Nullable="false" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rel_UserDomicilio">
+          <Key>
+            <PropertyRef Name="IdRelUserDom" />
+          </Key>
+          <Property Name="IdRelUserDom" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_IdTipoDom" Type="int" Nullable="false" />
+          <Property Name="FkIdUser" Type="int" Nullable="false" />
+          <Property Name="FkIdDomicilio" Type="int" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rel_UserRL">
+          <Key>
+            <PropertyRef Name="IdRelUserRL" />
+          </Key>
+          <Property Name="IdRelUserRL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_IdUser" Type="int" Nullable="false" />
+          <Property Name="Fk_IdRepresentanteLegal" Type="int" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Membership.dbo.RelacionMenuUser' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="RelacionMenuUser">
+          <Property Name="IdMenu" Type="int" />
+          <Property Name="IdUser" Type="int" />
+          <Property Name="SoloBitacora" Type="bit" />
+          <Property Name="Servicio" Type="char" MaxLength="100" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Membership.dbo.REP_FR_INM' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="REP_FR_INM">
+          <Key>
+            <PropertyRef Name="IdFolioReal" />
+          </Key>
+          <Property Name="RfiEdo" Type="nvarchar" MaxLength="2" />
+          <Property Name="RfiConsecutivo" Type="nvarchar" MaxLength="6" />
+          <Property Name="RfiDigVerificador" Type="nvarchar" MaxLength="1" />
+          <Property Name="IdFolioReal" Type="int" Nullable="false" />
+          <Property Name="FECHA" Type="char" MaxLength="8" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Membership.dbo.REP_USU_INM' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="REP_USU_INM">
+          <Property Name="fecha" Type="char" MaxLength="8" />
+          <Property Name="usr" Type="int" />
+          <Property Name="inm" Type="int" />
+          <Property Name="SUP1" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Membership.dbo.REPORTE_PDR' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="REPORTE_PDR">
+          <Key>
+            <PropertyRef Name="iduser" />
+            <PropertyRef Name="username" />
+            <PropertyRef Name="Admin" />
+            <PropertyRef Name="Inventario" />
+            <PropertyRef Name="ResponsableInmobiliario" />
+            <PropertyRef Name="Capturista" />
+            <PropertyRef Name="Catastro" />
+            <PropertyRef Name="Cedoc" />
+            <PropertyRef Name="DGPGI" />
+            <PropertyRef Name="Catalogos" />
+            <PropertyRef Name="Especialista" />
+            <PropertyRef Name="Subdirector" />
+            <PropertyRef Name="DGAPIF" />
+            <PropertyRef Name="Supervisor" />
+            <PropertyRef Name="Consulta" />
+            <PropertyRef Name="Busqueda" />
+            <PropertyRef Name="UsuarioParametricos" />
+            <PropertyRef Name="Juridico" />
+            <PropertyRef Name="JefeDepto" />
+            <PropertyRef Name="Director" />
+            <PropertyRef Name="UsuarioSAEF" />
+          </Key>
+          <Property Name="iduser" Type="int" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="Admin" Type="int" Nullable="false" />
+          <Property Name="Inventario" Type="int" Nullable="false" />
+          <Property Name="ResponsableInmobiliario" Type="int" Nullable="false" />
+          <Property Name="Capturista" Type="int" Nullable="false" />
+          <Property Name="Catastro" Type="int" Nullable="false" />
+          <Property Name="Cedoc" Type="int" Nullable="false" />
+          <Property Name="DGPGI" Type="int" Nullable="false" />
+          <Property Name="Catalogos" Type="int" Nullable="false" />
+          <Property Name="Especialista" Type="int" Nullable="false" />
+          <Property Name="Subdirector" Type="int" Nullable="false" />
+          <Property Name="DGAPIF" Type="int" Nullable="false" />
+          <Property Name="Supervisor" Type="int" Nullable="false" />
+          <Property Name="Consulta" Type="int" Nullable="false" />
+          <Property Name="Busqueda" Type="int" Nullable="false" />
+          <Property Name="UsuarioParametricos" Type="int" Nullable="false" />
+          <Property Name="Juridico" Type="int" Nullable="false" />
+          <Property Name="JefeDepto" Type="int" Nullable="false" />
+          <Property Name="Director" Type="int" Nullable="false" />
+          <Property Name="UsuarioSAEF" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Membership.dbo.REPORTE_ROLES' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="REPORTE_ROLES">
+          <Property Name="num" Type="int" />
+          <Property Name="columna" Type="nvarchar" MaxLength="100" />
+          <Property Name="tipo_dato" Type="nvarchar" MaxLength="100" />
+          <Property Name="required" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDOperation" Type="int" />
+          <Property Name="OperationName" Type="varchar" MaxLength="100" />
+          <Property Name="IDApplication" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IDExterno" Type="varchar" MaxLength="50" />
+          <Property Name="Inventario" Type="nvarchar" MaxLength="10" />
+          <Property Name="ResponsableInmobiliario" Type="nvarchar" MaxLength="10" />
+          <Property Name="Capturista" Type="nvarchar" MaxLength="10" />
+          <Property Name="Catastro" Type="nvarchar" MaxLength="10" />
+          <Property Name="DGPGI" Type="nvarchar" MaxLength="10" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Membership.dbo.REPORTE_ROLES_T' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="REPORTE_ROLES_T">
+          <Property Name="num" Type="int" />
+          <Property Name="columna" Type="nvarchar" MaxLength="100" />
+          <Property Name="tipo_dato" Type="nvarchar" MaxLength="100" />
+          <Property Name="required" Type="nvarchar" MaxLength="50" />
+          <Property Name="IDOperation" Type="int" />
+          <Property Name="OperationName" Type="varchar" MaxLength="100" />
+          <Property Name="IDApplication" Type="int" />
+          <Property Name="Description" Type="varchar" MaxLength="500" />
+          <Property Name="IDExterno" Type="varchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="RepresentanteLegal">
+          <Key>
+            <PropertyRef Name="IdRepresentanteLegal" />
+          </Key>
+          <Property Name="IdRepresentanteLegal" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RFC" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Cargo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IdGenero" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="IdPais" Type="int" />
+          <Property Name="CorreoRL" Type="varchar" MaxLength="100" />
+          <Property Name="IdTipoIdentificacion" Type="int" Nullable="false" />
+          <Property Name="NumeroIdentificacion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NumeroPoder" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaPoder" Type="date" Nullable="false" />
+          <Property Name="NombreNotario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApellidoPaternoNotario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApellidoMaternoNotario" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="NumeroNotarioPoder" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="DistritoNotarioPoder" Type="varchar" MaxLength="100" />
+          <Property Name="IdGeneroNotarioPoder" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="CiudadPoderNotarial" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="RegistroValidado" Type="bit" />
+          <Property Name="FechaAlta" Type="date" Nullable="false" />
+          <Property Name="FechaBaja" Type="date" />
+          <Property Name="FechaUltimoCambio" Type="date" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Role">
           <Key>
             <PropertyRef Name="IDRole" />
@@ -27,6 +417,49 @@
           <Property Name="RoleName" Type="varchar" MaxLength="256" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="500" />
           <Property Name="DefaultExterno" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RoleOperation">
+          <Key>
+            <PropertyRef Name="IDRoleOperation" />
+          </Key>
+          <Property Name="IDRoleOperation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDRole" Type="int" Nullable="false" />
+          <Property Name="IDOperation" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="IdTelefono" />
+          </Key>
+          <Property Name="IdTelefono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fk_IdUser" Type="int" Nullable="false" />
+          <Property Name="Fk_IdTipoTelefono" Type="int" Nullable="false" />
+          <Property Name="Lada" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="Telefono" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Extension" Type="varchar" MaxLength="15" />
+          <Property Name="EsPrincipal" Type="bit" Nullable="false" />
+          <Property Name="FechaUltimoCambio" Type="datetime" />
+          <Property Name="EstatusRegistro" Type="bit" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="int" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -72,6 +505,39 @@
           <Property Name="IdCatTipoProcedencia" Type="int" />
           <Property Name="IdPais" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Membership.dbo.user_password' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="user_password">
+          <Key>
+            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="password_open" />
+          </Key>
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="password_open" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="password_encrypted" Type="varchar" MaxLength="128" />
+          <Property Name="flag" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Membership.dbo.user_password2' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="user_password2">
+          <Key>
+            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="password_open" />
+          </Key>
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="password_open" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="password_encrypted" Type="varchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="UserConfirmation">
+          <Key>
+            <PropertyRef Name="IDUserConfirmation" />
+          </Key>
+          <Property Name="IDUserConfirmation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ConfirmationDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="UserInRole">
           <Key>
             <PropertyRef Name="IDUserInRole" />
@@ -80,6 +546,176 @@
           <Property Name="IDUser" Type="int" Nullable="false" />
           <Property Name="IDRole" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSession">
+          <Key>
+            <PropertyRef Name="Token" />
+          </Key>
+          <Property Name="Token" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IDUser" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UsersInRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Membership.dbo.usuario_correo_20160502' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="usuario_correo_20160502">
+          <Key>
+            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="IDUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AreaAdscripcion_User">
+          <End Role="CatAreaAdscripcion" Type="Self.CatAreaAdscripcion" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatAreaAdscripcion">
+              <PropertyRef Name="IntIdAreaAdscripcion" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdAreaAdscripcion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bitacora_CatBitacoraAccion">
+          <End Role="CatBitacoraAccion" Type="Self.CatBitacoraAccion" Multiplicity="0..1" />
+          <End Role="Bitacora" Type="Self.Bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatBitacoraAccion">
+              <PropertyRef Name="idCatBitacoraAccion" />
+            </Principal>
+            <Dependent Role="Bitacora">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_IdUser_Tel">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="Fk_IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_IdUser2">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="DatosFiscales" Type="Self.DatosFiscales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="DatosFiscales">
+              <PropertyRef Name="Fk_IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membership_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="Membership">
+              <PropertyRef Name="IDApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membership_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Membership">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operation_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="Operation">
+              <PropertyRef Name="IDApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserDomicilio_Domicilio">
+          <End Role="Domicilio" Type="Self.Domicilio" Multiplicity="1" />
+          <End Role="Rel_UserDomicilio" Type="Self.Rel_UserDomicilio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilio">
+              <PropertyRef Name="IdDomicilio" />
+            </Principal>
+            <Dependent Role="Rel_UserDomicilio">
+              <PropertyRef Name="FkIdDomicilio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserDomicilio_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rel_UserDomicilio" Type="Self.Rel_UserDomicilio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Rel_UserDomicilio">
+              <PropertyRef Name="FkIdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserRL_RepresentanteLegal">
+          <End Role="RepresentanteLegal" Type="Self.RepresentanteLegal" Multiplicity="1" />
+          <End Role="Rel_UserRL" Type="Self.Rel_UserRL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepresentanteLegal">
+              <PropertyRef Name="IdRepresentanteLegal" />
+            </Principal>
+            <Dependent Role="Rel_UserRL">
+              <PropertyRef Name="Fk_IdRepresentanteLegal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserRL_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rel_UserRL" Type="Self.Rel_UserRL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Rel_UserRL">
+              <PropertyRef Name="Fk_IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Role_Application">
           <End Role="Application" Type="Self.Application" Multiplicity="1" />
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
@@ -92,6 +728,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RoleOperation_Operation">
+          <End Role="Operation" Type="Self.Operation" Multiplicity="1" />
+          <End Role="RoleOperation" Type="Self.RoleOperation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="IDOperation" />
+            </Principal>
+            <Dependent Role="RoleOperation">
+              <PropertyRef Name="IDOperation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleOperation_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RoleOperation" Type="Self.RoleOperation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="RoleOperation">
+              <PropertyRef Name="IDRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="User1" Type="Self.User" Multiplicity="0..1" />
@@ -100,6 +760,20 @@
               <PropertyRef Name="IDUser" />
             </Principal>
             <Dependent Role="User1">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserConfirmation_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserConfirmation" Type="Self.UserConfirmation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="UserConfirmation">
               <PropertyRef Name="IDUser" />
             </Dependent>
           </ReferentialConstraint>
@@ -130,18 +804,277 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserSession_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSession" Type="Self.UserSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="UserSession">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdContentModelA_R">
+          <End Role="Cat_ContentModelAlfresco" Type="Self.Cat_ContentModelAlfresco" Multiplicity="1" />
+          <End Role="Rel_RoleContentModelAlfresco" Type="Self.Rel_RoleContentModelAlfresco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cat_ContentModelAlfresco">
+              <PropertyRef Name="IdContentModelA" />
+            </Principal>
+            <Dependent Role="Rel_RoleContentModelAlfresco">
+              <PropertyRef Name="Fk_IdContentModelA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idRole_R">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Rel_RoleContentModelAlfresco" Type="Self.Rel_RoleContentModelAlfresco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Rel_RoleContentModelAlfresco">
+              <PropertyRef Name="Fk_idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MembershipApplication">
+          <End Role="_Applications" Type="Self._Applications" Multiplicity="1" />
+          <End Role="Memberships" Type="Self.Memberships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Memberships">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MembershipUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Memberships" Type="Self.Memberships" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Memberships">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoleApplication">
+          <End Role="_Applications" Type="Self._Applications" Multiplicity="1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserApplication">
+          <End Role="_Applications" Type="Self._Applications" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserProfile">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Profiles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersInRoleRole">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersInRoleUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersInRoles" Type="Self.UsersInRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersInRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="MembershipModelStoreContainer">
+          <EntitySet Name="_Applications" EntityType="Self._Applications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bitacora" EntityType="Self.Bitacora" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BitacoraError" EntityType="Self.BitacoraError" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cat_ContentModelAlfresco" EntityType="Self.Cat_ContentModelAlfresco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatAreaAdscripcion" EntityType="Self.CatAreaAdscripcion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatBitacoraAccion" EntityType="Self.CatBitacoraAccion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatMenu" EntityType="Self.CatMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatosFiscales" EntityType="Self.DatosFiscales" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Domicilio" EntityType="Self.Domicilio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Membership" EntityType="Self.Membership" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Memberships" EntityType="Self.Memberships" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Operation" EntityType="Self.Operation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rel_Identificacion" EntityType="Self.Rel_Identificacion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rel_RoleContentModelAlfresco" EntityType="Self.Rel_RoleContentModelAlfresco" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rel_UserDomicilio" EntityType="Self.Rel_UserDomicilio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rel_UserRL" EntityType="Self.Rel_UserRL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RepresentanteLegal" EntityType="Self.RepresentanteLegal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RoleOperation" EntityType="Self.RoleOperation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserConfirmation" EntityType="Self.UserConfirmation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserInRole" EntityType="Self.UserInRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSession" EntityType="Self.UserSession" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersInRoles" EntityType="Self.UsersInRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="REP_FR_INM" EntityType="Self.REP_FR_INM" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[REP_FR_INM].[RfiEdo] AS [RfiEdo], 
+[REP_FR_INM].[RfiConsecutivo] AS [RfiConsecutivo], 
+[REP_FR_INM].[RfiDigVerificador] AS [RfiDigVerificador], 
+[REP_FR_INM].[IdFolioReal] AS [IdFolioReal], 
+[REP_FR_INM].[FECHA] AS [FECHA]
+FROM [dbo].[REP_FR_INM] AS [REP_FR_INM]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="REPORTE_PDR" EntityType="Self.REPORTE_PDR" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[REPORTE_PDR].[iduser] AS [iduser], 
+[REPORTE_PDR].[username] AS [username], 
+[REPORTE_PDR].[Admin] AS [Admin], 
+[REPORTE_PDR].[Inventario] AS [Inventario], 
+[REPORTE_PDR].[ResponsableInmobiliario] AS [ResponsableInmobiliario], 
+[REPORTE_PDR].[Capturista] AS [Capturista], 
+[REPORTE_PDR].[Catastro] AS [Catastro], 
+[REPORTE_PDR].[Cedoc] AS [Cedoc], 
+[REPORTE_PDR].[DGPGI] AS [DGPGI], 
+[REPORTE_PDR].[Catalogos] AS [Catalogos], 
+[REPORTE_PDR].[Especialista] AS [Especialista], 
+[REPORTE_PDR].[Subdirector] AS [Subdirector], 
+[REPORTE_PDR].[DGAPIF] AS [DGAPIF], 
+[REPORTE_PDR].[Supervisor] AS [Supervisor], 
+[REPORTE_PDR].[Consulta] AS [Consulta], 
+[REPORTE_PDR].[Busqueda] AS [Busqueda], 
+[REPORTE_PDR].[UsuarioParametricos] AS [UsuarioParametricos], 
+[REPORTE_PDR].[Juridico] AS [Juridico], 
+[REPORTE_PDR].[JefeDepto] AS [JefeDepto], 
+[REPORTE_PDR].[Director] AS [Director], 
+[REPORTE_PDR].[UsuarioSAEF] AS [UsuarioSAEF]
+FROM [dbo].[REPORTE_PDR] AS [REPORTE_PDR]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="user_password" EntityType="Self.user_password" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[user_password].[IDUser] AS [IDUser], 
+[user_password].[password_open] AS [password_open], 
+[user_password].[password_encrypted] AS [password_encrypted], 
+[user_password].[flag] AS [flag]
+FROM [dbo].[user_password] AS [user_password]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="user_password2" EntityType="Self.user_password2" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[user_password2].[IDUser] AS [IDUser], 
+[user_password2].[password_open] AS [password_open], 
+[user_password2].[password_encrypted] AS [password_encrypted]
+FROM [dbo].[user_password2] AS [user_password2]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="usuario_correo_20160502" EntityType="Self.usuario_correo_20160502" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[usuario_correo_20160502].[IDUser] AS [IDUser], 
+[usuario_correo_20160502].[Email] AS [Email]
+FROM [dbo].[usuario_correo_20160502] AS [usuario_correo_20160502]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_AreaAdscripcion_User" Association="Self.FK_AreaAdscripcion_User">
+            <End Role="CatAreaAdscripcion" EntitySet="CatAreaAdscripcion" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bitacora_CatBitacoraAccion" Association="Self.FK_Bitacora_CatBitacoraAccion">
+            <End Role="CatBitacoraAccion" EntitySet="CatBitacoraAccion" />
+            <End Role="Bitacora" EntitySet="Bitacora" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_IdUser_Tel" Association="Self.Fk_IdUser_Tel">
+            <End Role="User" EntitySet="User" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_IdUser2" Association="Self.Fk_IdUser2">
+            <End Role="User" EntitySet="User" />
+            <End Role="DatosFiscales" EntitySet="DatosFiscales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membership_Application" Association="Self.FK_Membership_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Membership" EntitySet="Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membership_User" Association="Self.FK_Membership_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Membership" EntitySet="Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operation_Application" Association="Self.FK_Operation_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Operation" EntitySet="Operation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserDomicilio_Domicilio" Association="Self.FK_Rel_UserDomicilio_Domicilio">
+            <End Role="Domicilio" EntitySet="Domicilio" />
+            <End Role="Rel_UserDomicilio" EntitySet="Rel_UserDomicilio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserDomicilio_User" Association="Self.FK_Rel_UserDomicilio_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rel_UserDomicilio" EntitySet="Rel_UserDomicilio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserRL_RepresentanteLegal" Association="Self.FK_Rel_UserRL_RepresentanteLegal">
+            <End Role="RepresentanteLegal" EntitySet="RepresentanteLegal" />
+            <End Role="Rel_UserRL" EntitySet="Rel_UserRL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserRL_User" Association="Self.FK_Rel_UserRL_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rel_UserRL" EntitySet="Rel_UserRL" />
+          </AssociationSet>
           <AssociationSet Name="FK_Role_Application" Association="Self.FK_Role_Application">
             <End Role="Application" EntitySet="Application" />
             <End Role="Role" EntitySet="Role" />
           </AssociationSet>
+          <AssociationSet Name="FK_RoleOperation_Operation" Association="Self.FK_RoleOperation_Operation">
+            <End Role="Operation" EntitySet="Operation" />
+            <End Role="RoleOperation" EntitySet="RoleOperation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleOperation_Role" Association="Self.FK_RoleOperation_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RoleOperation" EntitySet="RoleOperation" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_User" Association="Self.FK_User_User">
             <End Role="User" EntitySet="User" />
             <End Role="User1" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserConfirmation_User" Association="Self.FK_UserConfirmation_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserConfirmation" EntitySet="UserConfirmation" />
           </AssociationSet>
           <AssociationSet Name="FK_UserInRole_Role1" Association="Self.FK_UserInRole_Role1">
             <End Role="Role" EntitySet="Role" />
@@ -151,12 +1084,63 @@
             <End Role="User" EntitySet="User" />
             <End Role="UserInRole" EntitySet="UserInRole" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserSession_User" Association="Self.FK_UserSession_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSession" EntitySet="UserSession" />
+          </AssociationSet>
+          <AssociationSet Name="IdContentModelA_R" Association="Self.IdContentModelA_R">
+            <End Role="Cat_ContentModelAlfresco" EntitySet="Cat_ContentModelAlfresco" />
+            <End Role="Rel_RoleContentModelAlfresco" EntitySet="Rel_RoleContentModelAlfresco" />
+          </AssociationSet>
+          <AssociationSet Name="idRole_R" Association="Self.idRole_R">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Rel_RoleContentModelAlfresco" EntitySet="Rel_RoleContentModelAlfresco" />
+          </AssociationSet>
+          <AssociationSet Name="MembershipApplication" Association="Self.MembershipApplication">
+            <End Role="_Applications" EntitySet="_Applications" />
+            <End Role="Memberships" EntitySet="Memberships" />
+          </AssociationSet>
+          <AssociationSet Name="MembershipUser" Association="Self.MembershipUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Memberships" EntitySet="Memberships" />
+          </AssociationSet>
+          <AssociationSet Name="RoleApplication" Association="Self.RoleApplication">
+            <End Role="_Applications" EntitySet="_Applications" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="UserApplication" Association="Self.UserApplication">
+            <End Role="_Applications" EntitySet="_Applications" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="UserProfile" Association="Self.UserProfile">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="UsersInRoleRole" Association="Self.UsersInRoleRole">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
+          <AssociationSet Name="UsersInRoleUser" Association="Self.UsersInRoleUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersInRoles" EntitySet="UsersInRoles" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MembershipModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C_Applications">
+          <Key>
+            <PropertyRef Name="ApplicationId" />
+          </Key>
+          <Property Name="ApplicationName" Type="String" MaxLength="235" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Memberships" Relationship="Self.MembershipApplication" FromRole="C_Applications" ToRole="Memberships" />
+          <NavigationProperty Name="Roles" Relationship="Self.RoleApplication" FromRole="C_Applications" ToRole="Roles" />
+          <NavigationProperty Name="Users" Relationship="Self.UserApplication" FromRole="C_Applications" ToRole="Users" />
+        </EntityType>
         <EntityType Name="Application">
           <Key>
             <PropertyRef Name="IDApplication" />
@@ -169,7 +1153,264 @@
           <Property Name="Enabled" Type="Boolean" Nullable="false" />
           <Property Name="DefaultExterno" Type="Boolean" Nullable="false" />
           <Property Name="Visible" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Membership" Relationship="Self.FK_Membership_Application" FromRole="Application" ToRole="Membership" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK_Operation_Application" FromRole="Application" ToRole="Operation" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Role_Application" FromRole="Application" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Bitacora">
+          <Key>
+            <PropertyRef Name="idBitacora" />
+          </Key>
+          <Property Name="idBitacora" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAccion" Type="Byte" />
+          <Property Name="nbUsuarioModifico" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="datoAnterior" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="datoNuevo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CatBitacoraAccion" Relationship="Self.FK_Bitacora_CatBitacoraAccion" FromRole="Bitacora" ToRole="CatBitacoraAccion" />
+        </EntityType>
+        <EntityType Name="BitacoraError">
+          <Key>
+            <PropertyRef Name="IdBitacoraError" />
+          </Key>
+          <Property Name="IdBitacoraError" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mensaje" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EsError" Type="Boolean" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="Int32" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Cat_ContentModelAlfresco">
+          <Key>
+            <PropertyRef Name="IdContentModelA" />
+          </Key>
+          <Property Name="IdContentModelA" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DescripcionContentModel" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EtiquetaContentModel" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="Int32" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Rel_RoleContentModelAlfresco" Relationship="Self.IdContentModelA_R" FromRole="Cat_ContentModelAlfresco" ToRole="Rel_RoleContentModelAlfresco" />
+        </EntityType>
+        <EntityType Name="CatAreaAdscripcion">
+          <Key>
+            <PropertyRef Name="IntIdAreaAdscripcion" />
+          </Key>
+          <Property Name="IntIdAreaAdscripcion" Type="Guid" Nullable="false" />
+          <Property Name="FDVcNombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FDVcDescripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FDBoActivo" Type="Byte" />
+          <NavigationProperty Name="User" Relationship="Self.FK_AreaAdscripcion_User" FromRole="CatAreaAdscripcion" ToRole="User" />
+        </EntityType>
+        <EntityType Name="CatBitacoraAccion">
+          <Key>
+            <PropertyRef Name="idCatBitacoraAccion" />
+          </Key>
+          <Property Name="idCatBitacoraAccion" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nbAccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Bitacora" Relationship="Self.FK_Bitacora_CatBitacoraAccion" FromRole="CatBitacoraAccion" ToRole="Bitacora" />
+        </EntityType>
+        <EntityType Name="CatMenu">
+          <Key>
+            <PropertyRef Name="IdMenu" />
+          </Key>
+          <Property Name="IdMenu" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="DatosFiscales">
+          <Key>
+            <PropertyRef Name="IdDatosFiscales" />
+          </Key>
+          <Property Name="IdDatosFiscales" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Escritura" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaEscritura" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FolioReal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NumeroLibro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Tomo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Volumen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Foja" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Seccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NombreNotario" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaternoNotario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaternoNotario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroNotario" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CiudadNotario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DistritoNotario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdGeneroNotario" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="0" />
+          <Property Name="FechaUltimoCambio" Type="DateTime" Precision="0" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <Property Name="RegistroValidado" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.Fk_IdUser2" FromRole="DatosFiscales" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Domicilio">
+          <Key>
+            <PropertyRef Name="IdDomicilio" />
+          </Key>
+          <Property Name="IdDomicilio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Calle" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroExterior" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroInterior" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="IdCP" Type="Int32" />
+          <Property Name="CP" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+          <Property Name="IdLocalidad" Type="Int32" />
+          <Property Name="Localidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdColonia" Type="Int32" />
+          <Property Name="Colonia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdPais" Type="Int32" Nullable="false" />
+          <Property Name="IdEstado" Type="Int32" Nullable="false" />
+          <Property Name="IdMunicipio" Type="Int32" Nullable="false" />
+          <Property Name="Referencias" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="0" />
+          <Property Name="FechaUltimoCambio" Type="DateTime" Precision="0" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <Property Name="RegistroValidado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rel_UserDomicilio" Relationship="Self.FK_Rel_UserDomicilio_Domicilio" FromRole="Domicilio" ToRole="Rel_UserDomicilio" />
+        </EntityType>
+        <EntityType Name="Membership">
+          <Key>
+            <PropertyRef Name="IDMembership" />
+          </Key>
+          <Property Name="IDMembership" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDApplication" Type="Int32" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Membership_Application" FromRole="Membership" ToRole="Application" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Membership_User" FromRole="Membership" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Memberships">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PasswordFormat" Type="Int32" Nullable="false" />
+          <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordQuestion" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="PasswordAnswer" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="Int32" Nullable="false" />
+          <Property Name="FailedPasswordAnswerAttemptWindowsStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comment" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C_Applications" Relationship="Self.MembershipApplication" FromRole="Memberships" ToRole="C_Applications" />
+          <NavigationProperty Name="Users" Relationship="Self.MembershipUser" FromRole="Memberships" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Operation">
+          <Key>
+            <PropertyRef Name="IDOperation" />
+          </Key>
+          <Property Name="IDOperation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OperationName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IDApplication" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IDExterno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Application" Relationship="Self.FK_Operation_Application" FromRole="Operation" ToRole="Application" />
+          <NavigationProperty Name="RoleOperation" Relationship="Self.FK_RoleOperation_Operation" FromRole="Operation" ToRole="RoleOperation" />
+        </EntityType>
+        <EntityType Name="Profiles">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="PropertyNames" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PropertyValueStrings" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PropertyValueBinary" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="LastUpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="Self.UserProfile" FromRole="Profiles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Rel_Identificacion">
+          <Key>
+            <PropertyRef Name="IdRelIdentificacion" />
+          </Key>
+          <Property Name="IdRelIdentificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTipoRel" Type="Int32" Nullable="false" />
+          <Property Name="Fk_IdRelRegistro" Type="Int32" Nullable="false" />
+          <Property Name="FK_IdIdentificacionExpide" Type="Int32" Nullable="false" />
+          <Property Name="NumeroIdentificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="Int32" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Rel_RoleContentModelAlfresco">
+          <Key>
+            <PropertyRef Name="IdRoleContentModel" />
+          </Key>
+          <Property Name="IdRoleContentModel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_IdContentModelA" Type="Int32" Nullable="false" />
+          <Property Name="Fk_idRole" Type="Int32" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="Int32" Nullable="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Cat_ContentModelAlfresco" Relationship="Self.IdContentModelA_R" FromRole="Rel_RoleContentModelAlfresco" ToRole="Cat_ContentModelAlfresco" />
+          <NavigationProperty Name="Role" Relationship="Self.idRole_R" FromRole="Rel_RoleContentModelAlfresco" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Rel_UserDomicilio">
+          <Key>
+            <PropertyRef Name="IdRelUserDom" />
+          </Key>
+          <Property Name="IdRelUserDom" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_IdTipoDom" Type="Int32" Nullable="false" />
+          <Property Name="FkIdUser" Type="Int32" Nullable="false" />
+          <Property Name="FkIdDomicilio" Type="Int32" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Domicilio" Relationship="Self.FK_Rel_UserDomicilio_Domicilio" FromRole="Rel_UserDomicilio" ToRole="Domicilio" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rel_UserDomicilio_User" FromRole="Rel_UserDomicilio" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Rel_UserRL">
+          <Key>
+            <PropertyRef Name="IdRelUserRL" />
+          </Key>
+          <Property Name="IdRelUserRL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Fk_IdRepresentanteLegal" Type="Int32" Nullable="false" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="RepresentanteLegal" Relationship="Self.FK_Rel_UserRL_RepresentanteLegal" FromRole="Rel_UserRL" ToRole="RepresentanteLegal" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Rel_UserRL_User" FromRole="Rel_UserRL" ToRole="User" />
+        </EntityType>
+        <EntityType Name="RepresentanteLegal">
+          <Key>
+            <PropertyRef Name="IdRepresentanteLegal" />
+          </Key>
+          <Property Name="IdRepresentanteLegal" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RFC" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaterno" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cargo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IdGenero" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="IdPais" Type="Int32" />
+          <Property Name="CorreoRL" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdTipoIdentificacion" Type="Int32" Nullable="false" />
+          <Property Name="NumeroIdentificacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroPoder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaPoder" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="NombreNotario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoPaternoNotario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApellidoMaternoNotario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NumeroNotarioPoder" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DistritoNotarioPoder" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IdGeneroNotarioPoder" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="CiudadPoderNotarial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RegistroValidado" Type="Boolean" />
+          <Property Name="FechaAlta" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FechaBaja" Type="DateTime" Precision="0" />
+          <Property Name="FechaUltimoCambio" Type="DateTime" Precision="0" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Rel_UserRL" Relationship="Self.FK_Rel_UserRL_RepresentanteLegal" FromRole="RepresentanteLegal" ToRole="Rel_UserRL" />
         </EntityType>
         <EntityType Name="Role">
           <Key>
@@ -181,7 +1422,57 @@
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="DefaultExterno" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Application" Relationship="Self.FK_Role_Application" FromRole="Role" ToRole="Application" />
+          <NavigationProperty Name="Rel_RoleContentModelAlfresco" Relationship="Self.idRole_R" FromRole="Role" ToRole="Rel_RoleContentModelAlfresco" />
+          <NavigationProperty Name="RoleOperation" Relationship="Self.FK_RoleOperation_Role" FromRole="Role" ToRole="RoleOperation" />
           <NavigationProperty Name="UserInRole" Relationship="Self.FK_UserInRole_Role1" FromRole="Role" ToRole="UserInRole" />
+        </EntityType>
+        <EntityType Name="RoleOperation">
+          <Key>
+            <PropertyRef Name="IDRoleOperation" />
+          </Key>
+          <Property Name="IDRoleOperation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDRole" Type="Int32" Nullable="false" />
+          <Property Name="IDOperation" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Operation" Relationship="Self.FK_RoleOperation_Operation" FromRole="RoleOperation" ToRole="Operation" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_RoleOperation_Role" FromRole="RoleOperation" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="C_Applications" Relationship="Self.RoleApplication" FromRole="Roles" ToRole="C_Applications" />
+          <NavigationProperty Name="Users" Relationship="Self.UsersInRoles" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Telefono">
+          <Key>
+            <PropertyRef Name="IdTelefono" />
+          </Key>
+          <Property Name="IdTelefono" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fk_IdUser" Type="Int32" Nullable="false" />
+          <Property Name="Fk_IdTipoTelefono" Type="Int32" Nullable="false" />
+          <Property Name="Lada" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telefono1" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Extension" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="EsPrincipal" Type="Boolean" Nullable="false" />
+          <Property Name="FechaUltimoCambio" Type="DateTime" Precision="3" />
+          <Property Name="EstatusRegistro" Type="Boolean" Nullable="false" />
+          <Property Name="Fk_IdUsuarioRegistro" Type="Int32" />
+          <Property Name="FechaRegistro" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.Fk_IdUser_Tel" FromRole="Telefono" ToRole="User" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -226,9 +1517,28 @@
           <Property Name="RazonSocial" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="IdCatTipoProcedencia" Type="Int32" />
           <Property Name="IdPais" Type="Int32" />
+          <NavigationProperty Name="CatAreaAdscripcion" Relationship="Self.FK_AreaAdscripcion_User" FromRole="User" ToRole="CatAreaAdscripcion" />
+          <NavigationProperty Name="DatosFiscales" Relationship="Self.Fk_IdUser2" FromRole="User" ToRole="DatosFiscales" />
+          <NavigationProperty Name="Membership" Relationship="Self.FK_Membership_User" FromRole="User" ToRole="Membership" />
+          <NavigationProperty Name="Rel_UserDomicilio" Relationship="Self.FK_Rel_UserDomicilio_User" FromRole="User" ToRole="Rel_UserDomicilio" />
+          <NavigationProperty Name="Rel_UserRL" Relationship="Self.FK_Rel_UserRL_User" FromRole="User" ToRole="Rel_UserRL" />
+          <NavigationProperty Name="Telefono1" Relationship="Self.Fk_IdUser_Tel" FromRole="User" ToRole="Telefono" />
           <NavigationProperty Name="User1" Relationship="Self.FK_User_User" FromRole="User" ToRole="User1" />
           <NavigationProperty Name="User2" Relationship="Self.FK_User_User" FromRole="User1" ToRole="User" />
+          <NavigationProperty Name="UserConfirmation" Relationship="Self.FK_UserConfirmation_User" FromRole="User" ToRole="UserConfirmation" />
           <NavigationProperty Name="UserInRole" Relationship="Self.FK_UserInRole_User" FromRole="User" ToRole="UserInRole" />
+          <NavigationProperty Name="UserSession" Relationship="Self.FK_UserSession_User" FromRole="User" ToRole="UserSession" />
+        </EntityType>
+        <EntityType Name="UserConfirmation">
+          <Key>
+            <PropertyRef Name="IDUserConfirmation" />
+          </Key>
+          <Property Name="IDUserConfirmation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ConfirmationDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserConfirmation_User" FromRole="UserConfirmation" ToRole="User" />
         </EntityType>
         <EntityType Name="UserInRole">
           <Key>
@@ -240,6 +1550,172 @@
           <NavigationProperty Name="Role" Relationship="Self.FK_UserInRole_Role1" FromRole="UserInRole" ToRole="Role" />
           <NavigationProperty Name="User" Relationship="Self.FK_UserInRole_User" FromRole="UserInRole" ToRole="User" />
         </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsAnonymous" Type="Boolean" Nullable="false" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="C_Applications" Relationship="Self.UserApplication" FromRole="Users" ToRole="C_Applications" />
+          <NavigationProperty Name="Memberships" Relationship="Self.MembershipUser" FromRole="Users" ToRole="Memberships" />
+          <NavigationProperty Name="Profiles" Relationship="Self.UserProfile" FromRole="Users" ToRole="Profiles" />
+          <NavigationProperty Name="Roles" Relationship="Self.UsersInRoles" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <EntityType Name="UserSession">
+          <Key>
+            <PropertyRef Name="Token" />
+          </Key>
+          <Property Name="Token" Type="Guid" Nullable="false" />
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_UserSession_User" FromRole="UserSession" ToRole="User" />
+        </EntityType>
+        <EntityType Name="REP_FR_INM">
+          <Key>
+            <PropertyRef Name="IdFolioReal" />
+          </Key>
+          <Property Name="RfiEdo" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="RfiConsecutivo" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="RfiDigVerificador" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="IdFolioReal" Type="Int32" Nullable="false" />
+          <Property Name="FECHA" Type="String" MaxLength="8" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="REPORTE_PDR">
+          <Key>
+            <PropertyRef Name="iduser" />
+            <PropertyRef Name="username" />
+            <PropertyRef Name="Admin" />
+            <PropertyRef Name="Inventario" />
+            <PropertyRef Name="ResponsableInmobiliario" />
+            <PropertyRef Name="Capturista" />
+            <PropertyRef Name="Catastro" />
+            <PropertyRef Name="Cedoc" />
+            <PropertyRef Name="DGPGI" />
+            <PropertyRef Name="Catalogos" />
+            <PropertyRef Name="Especialista" />
+            <PropertyRef Name="Subdirector" />
+            <PropertyRef Name="DGAPIF" />
+            <PropertyRef Name="Supervisor" />
+            <PropertyRef Name="Consulta" />
+            <PropertyRef Name="Busqueda" />
+            <PropertyRef Name="UsuarioParametricos" />
+            <PropertyRef Name="Juridico" />
+            <PropertyRef Name="JefeDepto" />
+            <PropertyRef Name="Director" />
+            <PropertyRef Name="UsuarioSAEF" />
+          </Key>
+          <Property Name="iduser" Type="Int32" Nullable="false" />
+          <Property Name="username" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Admin" Type="Int32" Nullable="false" />
+          <Property Name="Inventario" Type="Int32" Nullable="false" />
+          <Property Name="ResponsableInmobiliario" Type="Int32" Nullable="false" />
+          <Property Name="Capturista" Type="Int32" Nullable="false" />
+          <Property Name="Catastro" Type="Int32" Nullable="false" />
+          <Property Name="Cedoc" Type="Int32" Nullable="false" />
+          <Property Name="DGPGI" Type="Int32" Nullable="false" />
+          <Property Name="Catalogos" Type="Int32" Nullable="false" />
+          <Property Name="Especialista" Type="Int32" Nullable="false" />
+          <Property Name="Subdirector" Type="Int32" Nullable="false" />
+          <Property Name="DGAPIF" Type="Int32" Nullable="false" />
+          <Property Name="Supervisor" Type="Int32" Nullable="false" />
+          <Property Name="Consulta" Type="Int32" Nullable="false" />
+          <Property Name="Busqueda" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioParametricos" Type="Int32" Nullable="false" />
+          <Property Name="Juridico" Type="Int32" Nullable="false" />
+          <Property Name="JefeDepto" Type="Int32" Nullable="false" />
+          <Property Name="Director" Type="Int32" Nullable="false" />
+          <Property Name="UsuarioSAEF" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_password">
+          <Key>
+            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="password_open" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="password_open" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password_encrypted" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Name="flag" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="user_password2">
+          <Key>
+            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="password_open" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" />
+          <Property Name="password_open" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password_encrypted" Type="String" MaxLength="128" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="usuario_correo_20160502">
+          <Key>
+            <PropertyRef Name="IDUser" />
+            <PropertyRef Name="Email" />
+          </Key>
+          <Property Name="IDUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="MembershipApplication">
+          <End Role="C_Applications" Type="Self.C_Applications" Multiplicity="1" />
+          <End Role="Memberships" Type="Self.Memberships" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Memberships">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="RoleApplication">
+          <End Role="C_Applications" Type="Self.C_Applications" Multiplicity="1" />
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Roles">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserApplication">
+          <End Role="C_Applications" Type="Self.C_Applications" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="C_Applications">
+              <PropertyRef Name="ApplicationId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="ApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membership_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="Membership">
+              <PropertyRef Name="IDApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Operation_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Operation" Type="Self.Operation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="IDApplication" />
+            </Principal>
+            <Dependent Role="Operation">
+              <PropertyRef Name="IDApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Role_Application">
           <End Role="Application" Type="Self.Application" Multiplicity="1" />
           <End Role="Role" Type="Self.Role" Multiplicity="*" />
@@ -249,6 +1725,176 @@
             </Principal>
             <Dependent Role="Role">
               <PropertyRef Name="IDApplication" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bitacora_CatBitacoraAccion">
+          <End Role="CatBitacoraAccion" Type="Self.CatBitacoraAccion" Multiplicity="0..1" />
+          <End Role="Bitacora" Type="Self.Bitacora" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatBitacoraAccion">
+              <PropertyRef Name="idCatBitacoraAccion" />
+            </Principal>
+            <Dependent Role="Bitacora">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="IdContentModelA_R">
+          <End Role="Cat_ContentModelAlfresco" Type="Self.Cat_ContentModelAlfresco" Multiplicity="1" />
+          <End Role="Rel_RoleContentModelAlfresco" Type="Self.Rel_RoleContentModelAlfresco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cat_ContentModelAlfresco">
+              <PropertyRef Name="IdContentModelA" />
+            </Principal>
+            <Dependent Role="Rel_RoleContentModelAlfresco">
+              <PropertyRef Name="Fk_IdContentModelA" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AreaAdscripcion_User">
+          <End Role="CatAreaAdscripcion" Type="Self.CatAreaAdscripcion" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CatAreaAdscripcion">
+              <PropertyRef Name="IntIdAreaAdscripcion" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="IdAreaAdscripcion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Fk_IdUser2">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="DatosFiscales" Type="Self.DatosFiscales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="DatosFiscales">
+              <PropertyRef Name="Fk_IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserDomicilio_Domicilio">
+          <End Role="Domicilio" Type="Self.Domicilio" Multiplicity="1" />
+          <End Role="Rel_UserDomicilio" Type="Self.Rel_UserDomicilio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Domicilio">
+              <PropertyRef Name="IdDomicilio" />
+            </Principal>
+            <Dependent Role="Rel_UserDomicilio">
+              <PropertyRef Name="FkIdDomicilio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Membership_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Membership" Type="Self.Membership" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Membership">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="MembershipUser">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Memberships" Type="Self.Memberships" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Memberships">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleOperation_Operation">
+          <End Role="Operation" Type="Self.Operation" Multiplicity="1" />
+          <End Role="RoleOperation" Type="Self.RoleOperation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Operation">
+              <PropertyRef Name="IDOperation" />
+            </Principal>
+            <Dependent Role="RoleOperation">
+              <PropertyRef Name="IDOperation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserProfile">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Profiles" Type="Self.Profiles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Profiles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="idRole_R">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="Rel_RoleContentModelAlfresco" Type="Self.Rel_RoleContentModelAlfresco" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="Rel_RoleContentModelAlfresco">
+              <PropertyRef Name="Fk_idRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserDomicilio_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rel_UserDomicilio" Type="Self.Rel_UserDomicilio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Rel_UserDomicilio">
+              <PropertyRef Name="FkIdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserRL_RepresentanteLegal">
+          <End Role="RepresentanteLegal" Type="Self.RepresentanteLegal" Multiplicity="1" />
+          <End Role="Rel_UserRL" Type="Self.Rel_UserRL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RepresentanteLegal">
+              <PropertyRef Name="IdRepresentanteLegal" />
+            </Principal>
+            <Dependent Role="Rel_UserRL">
+              <PropertyRef Name="Fk_IdRepresentanteLegal" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rel_UserRL_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Rel_UserRL" Type="Self.Rel_UserRL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Rel_UserRL">
+              <PropertyRef Name="Fk_IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RoleOperation_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RoleOperation" Type="Self.RoleOperation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="IDRole" />
+            </Principal>
+            <Dependent Role="RoleOperation">
+              <PropertyRef Name="IDRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -264,6 +1910,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="Fk_IdUser_Tel">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Telefono" Type="Self.Telefono" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="Telefono">
+              <PropertyRef Name="Fk_IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_User_User">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="User1" Type="Self.User" Multiplicity="0..1" />
@@ -272,6 +1930,20 @@
               <PropertyRef Name="IDUser" />
             </Principal>
             <Dependent Role="User1">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserConfirmation_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserConfirmation" Type="Self.UserConfirmation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="UserConfirmation">
               <PropertyRef Name="IDUser" />
             </Dependent>
           </ReferentialConstraint>
@@ -290,26 +1962,166 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserSession_User">
+          <End Role="User" Type="Self.User" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserSession" Type="Self.UserSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="IDUser" />
+            </Principal>
+            <Dependent Role="UserSession">
+              <PropertyRef Name="IDUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersInRoles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="*" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+        </Association>
         <EntityContainer Name="MembershipEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C_Applications" EntityType="Self.C_Applications" />
           <EntitySet Name="Application" EntityType="Self.Application" />
+          <EntitySet Name="Bitacora" EntityType="Self.Bitacora" />
+          <EntitySet Name="BitacoraError" EntityType="Self.BitacoraError" />
+          <EntitySet Name="Cat_ContentModelAlfresco" EntityType="Self.Cat_ContentModelAlfresco" />
+          <EntitySet Name="CatAreaAdscripcion" EntityType="Self.CatAreaAdscripcion" />
+          <EntitySet Name="CatBitacoraAccion" EntityType="Self.CatBitacoraAccion" />
+          <EntitySet Name="CatMenu" EntityType="Self.CatMenu" />
+          <EntitySet Name="DatosFiscales" EntityType="Self.DatosFiscales" />
+          <EntitySet Name="Domicilio" EntityType="Self.Domicilio" />
+          <EntitySet Name="Membership" EntityType="Self.Membership" />
+          <EntitySet Name="Memberships" EntityType="Self.Memberships" />
+          <EntitySet Name="Operation" EntityType="Self.Operation" />
+          <EntitySet Name="Profiles" EntityType="Self.Profiles" />
+          <EntitySet Name="Rel_Identificacion" EntityType="Self.Rel_Identificacion" />
+          <EntitySet Name="Rel_RoleContentModelAlfresco" EntityType="Self.Rel_RoleContentModelAlfresco" />
+          <EntitySet Name="Rel_UserDomicilio" EntityType="Self.Rel_UserDomicilio" />
+          <EntitySet Name="Rel_UserRL" EntityType="Self.Rel_UserRL" />
+          <EntitySet Name="RepresentanteLegal" EntityType="Self.RepresentanteLegal" />
           <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="RoleOperation" EntityType="Self.RoleOperation" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Telefono" EntityType="Self.Telefono" />
           <EntitySet Name="User" EntityType="Self.User" />
+          <EntitySet Name="UserConfirmation" EntityType="Self.UserConfirmation" />
           <EntitySet Name="UserInRole" EntityType="Self.UserInRole" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="UserSession" EntityType="Self.UserSession" />
+          <EntitySet Name="REP_FR_INM" EntityType="Self.REP_FR_INM" />
+          <EntitySet Name="REPORTE_PDR" EntityType="Self.REPORTE_PDR" />
+          <EntitySet Name="user_password" EntityType="Self.user_password" />
+          <EntitySet Name="user_password2" EntityType="Self.user_password2" />
+          <EntitySet Name="usuario_correo_20160502" EntityType="Self.usuario_correo_20160502" />
+          <AssociationSet Name="MembershipApplication" Association="Self.MembershipApplication">
+            <End Role="C_Applications" EntitySet="C_Applications" />
+            <End Role="Memberships" EntitySet="Memberships" />
+          </AssociationSet>
+          <AssociationSet Name="RoleApplication" Association="Self.RoleApplication">
+            <End Role="C_Applications" EntitySet="C_Applications" />
+            <End Role="Roles" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="UserApplication" Association="Self.UserApplication">
+            <End Role="C_Applications" EntitySet="C_Applications" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membership_Application" Association="Self.FK_Membership_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Membership" EntitySet="Membership" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Operation_Application" Association="Self.FK_Operation_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Operation" EntitySet="Operation" />
+          </AssociationSet>
           <AssociationSet Name="FK_Role_Application" Association="Self.FK_Role_Application">
             <End Role="Application" EntitySet="Application" />
             <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bitacora_CatBitacoraAccion" Association="Self.FK_Bitacora_CatBitacoraAccion">
+            <End Role="CatBitacoraAccion" EntitySet="CatBitacoraAccion" />
+            <End Role="Bitacora" EntitySet="Bitacora" />
+          </AssociationSet>
+          <AssociationSet Name="IdContentModelA_R" Association="Self.IdContentModelA_R">
+            <End Role="Cat_ContentModelAlfresco" EntitySet="Cat_ContentModelAlfresco" />
+            <End Role="Rel_RoleContentModelAlfresco" EntitySet="Rel_RoleContentModelAlfresco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AreaAdscripcion_User" Association="Self.FK_AreaAdscripcion_User">
+            <End Role="CatAreaAdscripcion" EntitySet="CatAreaAdscripcion" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="Fk_IdUser2" Association="Self.Fk_IdUser2">
+            <End Role="User" EntitySet="User" />
+            <End Role="DatosFiscales" EntitySet="DatosFiscales" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserDomicilio_Domicilio" Association="Self.FK_Rel_UserDomicilio_Domicilio">
+            <End Role="Domicilio" EntitySet="Domicilio" />
+            <End Role="Rel_UserDomicilio" EntitySet="Rel_UserDomicilio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Membership_User" Association="Self.FK_Membership_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Membership" EntitySet="Membership" />
+          </AssociationSet>
+          <AssociationSet Name="MembershipUser" Association="Self.MembershipUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Memberships" EntitySet="Memberships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleOperation_Operation" Association="Self.FK_RoleOperation_Operation">
+            <End Role="Operation" EntitySet="Operation" />
+            <End Role="RoleOperation" EntitySet="RoleOperation" />
+          </AssociationSet>
+          <AssociationSet Name="UserProfile" Association="Self.UserProfile">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="idRole_R" Association="Self.idRole_R">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Rel_RoleContentModelAlfresco" EntitySet="Rel_RoleContentModelAlfresco" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserDomicilio_User" Association="Self.FK_Rel_UserDomicilio_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rel_UserDomicilio" EntitySet="Rel_UserDomicilio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserRL_RepresentanteLegal" Association="Self.FK_Rel_UserRL_RepresentanteLegal">
+            <End Role="RepresentanteLegal" EntitySet="RepresentanteLegal" />
+            <End Role="Rel_UserRL" EntitySet="Rel_UserRL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rel_UserRL_User" Association="Self.FK_Rel_UserRL_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Rel_UserRL" EntitySet="Rel_UserRL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RoleOperation_Role" Association="Self.FK_RoleOperation_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RoleOperation" EntitySet="RoleOperation" />
           </AssociationSet>
           <AssociationSet Name="FK_UserInRole_Role1" Association="Self.FK_UserInRole_Role1">
             <End Role="Role" EntitySet="Role" />
             <End Role="UserInRole" EntitySet="UserInRole" />
           </AssociationSet>
+          <AssociationSet Name="Fk_IdUser_Tel" Association="Self.Fk_IdUser_Tel">
+            <End Role="User" EntitySet="User" />
+            <End Role="Telefono" EntitySet="Telefono" />
+          </AssociationSet>
           <AssociationSet Name="FK_User_User" Association="Self.FK_User_User">
             <End Role="User" EntitySet="User" />
             <End Role="User1" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserConfirmation_User" Association="Self.FK_UserConfirmation_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserConfirmation" EntitySet="UserConfirmation" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserInRole_User" Association="Self.FK_UserInRole_User">
             <End Role="User" EntitySet="User" />
             <End Role="UserInRole" EntitySet="UserInRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSession_User" Association="Self.FK_UserSession_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UserSession" EntitySet="UserSession" />
+          </AssociationSet>
+          <AssociationSet Name="UsersInRoles" Association="Self.UsersInRoles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -318,6 +2130,15 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MembershipModelStoreContainer" CdmEntityContainer="MembershipEntities">
+          <EntitySetMapping Name="C_Applications">
+            <EntityTypeMapping TypeName="MembershipModel.C_Applications">
+              <MappingFragment StoreEntitySet="_Applications">
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Application">
             <EntityTypeMapping TypeName="MembershipModel.Application">
               <MappingFragment StoreEntitySet="Application">
@@ -332,6 +2153,258 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Bitacora">
+            <EntityTypeMapping TypeName="MembershipModel.Bitacora">
+              <MappingFragment StoreEntitySet="Bitacora">
+                <ScalarProperty Name="idBitacora" ColumnName="idBitacora" />
+                <ScalarProperty Name="idAccion" ColumnName="idAccion" />
+                <ScalarProperty Name="nbUsuarioModifico" ColumnName="nbUsuarioModifico" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="datoAnterior" ColumnName="datoAnterior" />
+                <ScalarProperty Name="datoNuevo" ColumnName="datoNuevo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BitacoraError">
+            <EntityTypeMapping TypeName="MembershipModel.BitacoraError">
+              <MappingFragment StoreEntitySet="BitacoraError">
+                <ScalarProperty Name="IdBitacoraError" ColumnName="IdBitacoraError" />
+                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+                <ScalarProperty Name="EsError" ColumnName="EsError" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+                <ScalarProperty Name="Fk_IdUsuarioRegistro" ColumnName="Fk_IdUsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cat_ContentModelAlfresco">
+            <EntityTypeMapping TypeName="MembershipModel.Cat_ContentModelAlfresco">
+              <MappingFragment StoreEntitySet="Cat_ContentModelAlfresco">
+                <ScalarProperty Name="IdContentModelA" ColumnName="IdContentModelA" />
+                <ScalarProperty Name="DescripcionContentModel" ColumnName="DescripcionContentModel" />
+                <ScalarProperty Name="EtiquetaContentModel" ColumnName="EtiquetaContentModel" />
+                <ScalarProperty Name="Fk_IdUsuarioRegistro" ColumnName="Fk_IdUsuarioRegistro" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatAreaAdscripcion">
+            <EntityTypeMapping TypeName="MembershipModel.CatAreaAdscripcion">
+              <MappingFragment StoreEntitySet="CatAreaAdscripcion">
+                <ScalarProperty Name="IntIdAreaAdscripcion" ColumnName="IntIdAreaAdscripcion" />
+                <ScalarProperty Name="FDVcNombre" ColumnName="FDVcNombre" />
+                <ScalarProperty Name="FDVcDescripcion" ColumnName="FDVcDescripcion" />
+                <ScalarProperty Name="FDBoActivo" ColumnName="FDBoActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatBitacoraAccion">
+            <EntityTypeMapping TypeName="MembershipModel.CatBitacoraAccion">
+              <MappingFragment StoreEntitySet="CatBitacoraAccion">
+                <ScalarProperty Name="idCatBitacoraAccion" ColumnName="idCatBitacoraAccion" />
+                <ScalarProperty Name="nbAccion" ColumnName="nbAccion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatMenu">
+            <EntityTypeMapping TypeName="MembershipModel.CatMenu">
+              <MappingFragment StoreEntitySet="CatMenu">
+                <ScalarProperty Name="IdMenu" ColumnName="IdMenu" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatosFiscales">
+            <EntityTypeMapping TypeName="MembershipModel.DatosFiscales">
+              <MappingFragment StoreEntitySet="DatosFiscales">
+                <ScalarProperty Name="IdDatosFiscales" ColumnName="IdDatosFiscales" />
+                <ScalarProperty Name="Fk_IdUser" ColumnName="Fk_IdUser" />
+                <ScalarProperty Name="Escritura" ColumnName="Escritura" />
+                <ScalarProperty Name="FechaEscritura" ColumnName="FechaEscritura" />
+                <ScalarProperty Name="FolioReal" ColumnName="FolioReal" />
+                <ScalarProperty Name="NumeroLibro" ColumnName="NumeroLibro" />
+                <ScalarProperty Name="Tomo" ColumnName="Tomo" />
+                <ScalarProperty Name="Volumen" ColumnName="Volumen" />
+                <ScalarProperty Name="Foja" ColumnName="Foja" />
+                <ScalarProperty Name="Seccion" ColumnName="Seccion" />
+                <ScalarProperty Name="NombreNotario" ColumnName="NombreNotario" />
+                <ScalarProperty Name="ApellidoPaternoNotario" ColumnName="ApellidoPaternoNotario" />
+                <ScalarProperty Name="ApellidoMaternoNotario" ColumnName="ApellidoMaternoNotario" />
+                <ScalarProperty Name="NumeroNotario" ColumnName="NumeroNotario" />
+                <ScalarProperty Name="CiudadNotario" ColumnName="CiudadNotario" />
+                <ScalarProperty Name="DistritoNotario" ColumnName="DistritoNotario" />
+                <ScalarProperty Name="IdGeneroNotario" ColumnName="IdGeneroNotario" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="FechaUltimoCambio" ColumnName="FechaUltimoCambio" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+                <ScalarProperty Name="RegistroValidado" ColumnName="RegistroValidado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Domicilio">
+            <EntityTypeMapping TypeName="MembershipModel.Domicilio">
+              <MappingFragment StoreEntitySet="Domicilio">
+                <ScalarProperty Name="IdDomicilio" ColumnName="IdDomicilio" />
+                <ScalarProperty Name="Calle" ColumnName="Calle" />
+                <ScalarProperty Name="NumeroExterior" ColumnName="NumeroExterior" />
+                <ScalarProperty Name="NumeroInterior" ColumnName="NumeroInterior" />
+                <ScalarProperty Name="IdCP" ColumnName="IdCP" />
+                <ScalarProperty Name="CP" ColumnName="CP" />
+                <ScalarProperty Name="IdLocalidad" ColumnName="IdLocalidad" />
+                <ScalarProperty Name="Localidad" ColumnName="Localidad" />
+                <ScalarProperty Name="IdColonia" ColumnName="IdColonia" />
+                <ScalarProperty Name="Colonia" ColumnName="Colonia" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdMunicipio" ColumnName="IdMunicipio" />
+                <ScalarProperty Name="Referencias" ColumnName="Referencias" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="FechaUltimoCambio" ColumnName="FechaUltimoCambio" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+                <ScalarProperty Name="RegistroValidado" ColumnName="RegistroValidado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Membership">
+            <EntityTypeMapping TypeName="MembershipModel.Membership">
+              <MappingFragment StoreEntitySet="Membership">
+                <ScalarProperty Name="IDMembership" ColumnName="IDMembership" />
+                <ScalarProperty Name="IDApplication" ColumnName="IDApplication" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Memberships">
+            <EntityTypeMapping TypeName="MembershipModel.Memberships">
+              <MappingFragment StoreEntitySet="Memberships">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordFormat" ColumnName="PasswordFormat" />
+                <ScalarProperty Name="PasswordSalt" ColumnName="PasswordSalt" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowsStart" ColumnName="FailedPasswordAnswerAttemptWindowsStart" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Operation">
+            <EntityTypeMapping TypeName="MembershipModel.Operation">
+              <MappingFragment StoreEntitySet="Operation">
+                <ScalarProperty Name="IDOperation" ColumnName="IDOperation" />
+                <ScalarProperty Name="OperationName" ColumnName="OperationName" />
+                <ScalarProperty Name="IDApplication" ColumnName="IDApplication" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IDExterno" ColumnName="IDExterno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="MembershipModel.Profiles">
+              <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+                <ScalarProperty Name="PropertyValueStrings" ColumnName="PropertyValueStrings" />
+                <ScalarProperty Name="PropertyValueBinary" ColumnName="PropertyValueBinary" />
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rel_Identificacion">
+            <EntityTypeMapping TypeName="MembershipModel.Rel_Identificacion">
+              <MappingFragment StoreEntitySet="Rel_Identificacion">
+                <ScalarProperty Name="IdRelIdentificacion" ColumnName="IdRelIdentificacion" />
+                <ScalarProperty Name="IdTipoRel" ColumnName="IdTipoRel" />
+                <ScalarProperty Name="Fk_IdRelRegistro" ColumnName="Fk_IdRelRegistro" />
+                <ScalarProperty Name="FK_IdIdentificacionExpide" ColumnName="FK_IdIdentificacionExpide" />
+                <ScalarProperty Name="NumeroIdentificacion" ColumnName="NumeroIdentificacion" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+                <ScalarProperty Name="Fk_IdUsuarioRegistro" ColumnName="Fk_IdUsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rel_RoleContentModelAlfresco">
+            <EntityTypeMapping TypeName="MembershipModel.Rel_RoleContentModelAlfresco">
+              <MappingFragment StoreEntitySet="Rel_RoleContentModelAlfresco">
+                <ScalarProperty Name="IdRoleContentModel" ColumnName="IdRoleContentModel" />
+                <ScalarProperty Name="Fk_IdContentModelA" ColumnName="Fk_IdContentModelA" />
+                <ScalarProperty Name="Fk_idRole" ColumnName="Fk_idRole" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+                <ScalarProperty Name="Fk_IdUsuarioRegistro" ColumnName="Fk_IdUsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rel_UserDomicilio">
+            <EntityTypeMapping TypeName="MembershipModel.Rel_UserDomicilio">
+              <MappingFragment StoreEntitySet="Rel_UserDomicilio">
+                <ScalarProperty Name="IdRelUserDom" ColumnName="IdRelUserDom" />
+                <ScalarProperty Name="Fk_IdTipoDom" ColumnName="Fk_IdTipoDom" />
+                <ScalarProperty Name="FkIdUser" ColumnName="FkIdUser" />
+                <ScalarProperty Name="FkIdDomicilio" ColumnName="FkIdDomicilio" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rel_UserRL">
+            <EntityTypeMapping TypeName="MembershipModel.Rel_UserRL">
+              <MappingFragment StoreEntitySet="Rel_UserRL">
+                <ScalarProperty Name="IdRelUserRL" ColumnName="IdRelUserRL" />
+                <ScalarProperty Name="Fk_IdUser" ColumnName="Fk_IdUser" />
+                <ScalarProperty Name="Fk_IdRepresentanteLegal" ColumnName="Fk_IdRepresentanteLegal" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RepresentanteLegal">
+            <EntityTypeMapping TypeName="MembershipModel.RepresentanteLegal">
+              <MappingFragment StoreEntitySet="RepresentanteLegal">
+                <ScalarProperty Name="IdRepresentanteLegal" ColumnName="IdRepresentanteLegal" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="ApellidoPaterno" ColumnName="ApellidoPaterno" />
+                <ScalarProperty Name="ApellidoMaterno" ColumnName="ApellidoMaterno" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="IdPais" ColumnName="IdPais" />
+                <ScalarProperty Name="CorreoRL" ColumnName="CorreoRL" />
+                <ScalarProperty Name="IdTipoIdentificacion" ColumnName="IdTipoIdentificacion" />
+                <ScalarProperty Name="NumeroIdentificacion" ColumnName="NumeroIdentificacion" />
+                <ScalarProperty Name="NumeroPoder" ColumnName="NumeroPoder" />
+                <ScalarProperty Name="FechaPoder" ColumnName="FechaPoder" />
+                <ScalarProperty Name="NombreNotario" ColumnName="NombreNotario" />
+                <ScalarProperty Name="ApellidoPaternoNotario" ColumnName="ApellidoPaternoNotario" />
+                <ScalarProperty Name="ApellidoMaternoNotario" ColumnName="ApellidoMaternoNotario" />
+                <ScalarProperty Name="NumeroNotarioPoder" ColumnName="NumeroNotarioPoder" />
+                <ScalarProperty Name="DistritoNotarioPoder" ColumnName="DistritoNotarioPoder" />
+                <ScalarProperty Name="IdGeneroNotarioPoder" ColumnName="IdGeneroNotarioPoder" />
+                <ScalarProperty Name="CiudadPoderNotarial" ColumnName="CiudadPoderNotarial" />
+                <ScalarProperty Name="RegistroValidado" ColumnName="RegistroValidado" />
+                <ScalarProperty Name="FechaAlta" ColumnName="FechaAlta" />
+                <ScalarProperty Name="FechaBaja" ColumnName="FechaBaja" />
+                <ScalarProperty Name="FechaUltimoCambio" ColumnName="FechaUltimoCambio" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="MembershipModel.Role">
               <MappingFragment StoreEntitySet="Role">
@@ -340,6 +2413,53 @@
                 <ScalarProperty Name="RoleName" ColumnName="RoleName" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DefaultExterno" ColumnName="DefaultExterno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RoleOperation">
+            <EntityTypeMapping TypeName="MembershipModel.RoleOperation">
+              <MappingFragment StoreEntitySet="RoleOperation">
+                <ScalarProperty Name="IDRoleOperation" ColumnName="IDRoleOperation" />
+                <ScalarProperty Name="IDRole" ColumnName="IDRole" />
+                <ScalarProperty Name="IDOperation" ColumnName="IDOperation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="MembershipModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="MembershipModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Telefono">
+            <EntityTypeMapping TypeName="MembershipModel.Telefono">
+              <MappingFragment StoreEntitySet="Telefono">
+                <ScalarProperty Name="IdTelefono" ColumnName="IdTelefono" />
+                <ScalarProperty Name="Fk_IdUser" ColumnName="Fk_IdUser" />
+                <ScalarProperty Name="Fk_IdTipoTelefono" ColumnName="Fk_IdTipoTelefono" />
+                <ScalarProperty Name="Lada" ColumnName="Lada" />
+                <ScalarProperty Name="Telefono1" ColumnName="Telefono" />
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
+                <ScalarProperty Name="EsPrincipal" ColumnName="EsPrincipal" />
+                <ScalarProperty Name="FechaUltimoCambio" ColumnName="FechaUltimoCambio" />
+                <ScalarProperty Name="EstatusRegistro" ColumnName="EstatusRegistro" />
+                <ScalarProperty Name="Fk_IdUsuarioRegistro" ColumnName="Fk_IdUsuarioRegistro" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -388,6 +2508,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="UserConfirmation">
+            <EntityTypeMapping TypeName="MembershipModel.UserConfirmation">
+              <MappingFragment StoreEntitySet="UserConfirmation">
+                <ScalarProperty Name="IDUserConfirmation" ColumnName="IDUserConfirmation" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ConfirmationDate" ColumnName="ConfirmationDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="UserInRole">
             <EntityTypeMapping TypeName="MembershipModel.UserInRole">
               <MappingFragment StoreEntitySet="UserInRole">
@@ -397,6 +2528,99 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="MembershipModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSession">
+            <EntityTypeMapping TypeName="MembershipModel.UserSession">
+              <MappingFragment StoreEntitySet="UserSession">
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REP_FR_INM">
+            <EntityTypeMapping TypeName="MembershipModel.REP_FR_INM">
+              <MappingFragment StoreEntitySet="REP_FR_INM">
+                <ScalarProperty Name="RfiEdo" ColumnName="RfiEdo" />
+                <ScalarProperty Name="RfiConsecutivo" ColumnName="RfiConsecutivo" />
+                <ScalarProperty Name="RfiDigVerificador" ColumnName="RfiDigVerificador" />
+                <ScalarProperty Name="IdFolioReal" ColumnName="IdFolioReal" />
+                <ScalarProperty Name="FECHA" ColumnName="FECHA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="REPORTE_PDR">
+            <EntityTypeMapping TypeName="MembershipModel.REPORTE_PDR">
+              <MappingFragment StoreEntitySet="REPORTE_PDR">
+                <ScalarProperty Name="iduser" ColumnName="iduser" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Inventario" ColumnName="Inventario" />
+                <ScalarProperty Name="ResponsableInmobiliario" ColumnName="ResponsableInmobiliario" />
+                <ScalarProperty Name="Capturista" ColumnName="Capturista" />
+                <ScalarProperty Name="Catastro" ColumnName="Catastro" />
+                <ScalarProperty Name="Cedoc" ColumnName="Cedoc" />
+                <ScalarProperty Name="DGPGI" ColumnName="DGPGI" />
+                <ScalarProperty Name="Catalogos" ColumnName="Catalogos" />
+                <ScalarProperty Name="Especialista" ColumnName="Especialista" />
+                <ScalarProperty Name="Subdirector" ColumnName="Subdirector" />
+                <ScalarProperty Name="DGAPIF" ColumnName="DGAPIF" />
+                <ScalarProperty Name="Supervisor" ColumnName="Supervisor" />
+                <ScalarProperty Name="Consulta" ColumnName="Consulta" />
+                <ScalarProperty Name="Busqueda" ColumnName="Busqueda" />
+                <ScalarProperty Name="UsuarioParametricos" ColumnName="UsuarioParametricos" />
+                <ScalarProperty Name="Juridico" ColumnName="Juridico" />
+                <ScalarProperty Name="JefeDepto" ColumnName="JefeDepto" />
+                <ScalarProperty Name="Director" ColumnName="Director" />
+                <ScalarProperty Name="UsuarioSAEF" ColumnName="UsuarioSAEF" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_password">
+            <EntityTypeMapping TypeName="MembershipModel.user_password">
+              <MappingFragment StoreEntitySet="user_password">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="password_open" ColumnName="password_open" />
+                <ScalarProperty Name="password_encrypted" ColumnName="password_encrypted" />
+                <ScalarProperty Name="flag" ColumnName="flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_password2">
+            <EntityTypeMapping TypeName="MembershipModel.user_password2">
+              <MappingFragment StoreEntitySet="user_password2">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="password_open" ColumnName="password_open" />
+                <ScalarProperty Name="password_encrypted" ColumnName="password_encrypted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario_correo_20160502">
+            <EntityTypeMapping TypeName="MembershipModel.usuario_correo_20160502">
+              <MappingFragment StoreEntitySet="usuario_correo_20160502">
+                <ScalarProperty Name="IDUser" ColumnName="IDUser" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UsersInRoles" TypeName="MembershipModel.UsersInRoles" StoreEntitySet="UsersInRoles">
+            <EndProperty Name="Roles">
+              <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="Users">
+              <ScalarProperty Name="UserId" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

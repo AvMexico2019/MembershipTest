@@ -16,7 +16,14 @@ namespace MEFDLL
     {
         public User()
         {
+            this.DatosFiscales = new HashSet<DatosFiscales>();
+            this.Membership = new HashSet<Membership>();
+            this.Rel_UserDomicilio = new HashSet<Rel_UserDomicilio>();
+            this.Rel_UserRL = new HashSet<Rel_UserRL>();
+            this.Telefono1 = new HashSet<Telefono>();
+            this.UserConfirmation = new HashSet<UserConfirmation>();
             this.UserInRole = new HashSet<UserInRole>();
+            this.UserSession = new HashSet<UserSession>();
         }
     
         public int IDUser { get; set; }
@@ -59,8 +66,16 @@ namespace MEFDLL
         public Nullable<int> IdCatTipoProcedencia { get; set; }
         public Nullable<int> IdPais { get; set; }
     
+        public virtual CatAreaAdscripcion CatAreaAdscripcion { get; set; }
+        public virtual ICollection<DatosFiscales> DatosFiscales { get; set; }
+        public virtual ICollection<Membership> Membership { get; set; }
+        public virtual ICollection<Rel_UserDomicilio> Rel_UserDomicilio { get; set; }
+        public virtual ICollection<Rel_UserRL> Rel_UserRL { get; set; }
+        public virtual ICollection<Telefono> Telefono1 { get; set; }
         public virtual User User1 { get; set; }
         public virtual User User2 { get; set; }
+        public virtual ICollection<UserConfirmation> UserConfirmation { get; set; }
         public virtual ICollection<UserInRole> UserInRole { get; set; }
+        public virtual ICollection<UserSession> UserSession { get; set; }
     }
 }

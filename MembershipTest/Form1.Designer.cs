@@ -38,6 +38,7 @@
             this.listBoxRolesUsuario = new System.Windows.Forms.ListBox();
             this.label5 = new System.Windows.Forms.Label();
             this.listBoxUsuariosEncontrados = new System.Windows.Forms.ListBox();
+            this.buttonBorraUsuario = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboBoxAplicaciones
@@ -123,17 +124,28 @@
             // listBoxUsuariosEncontrados
             // 
             this.listBoxUsuariosEncontrados.FormattingEnabled = true;
-            this.listBoxUsuariosEncontrados.Location = new System.Drawing.Point(351, 73);
+            this.listBoxUsuariosEncontrados.Location = new System.Drawing.Point(351, 86);
             this.listBoxUsuariosEncontrados.Name = "listBoxUsuariosEncontrados";
-            this.listBoxUsuariosEncontrados.Size = new System.Drawing.Size(437, 121);
+            this.listBoxUsuariosEncontrados.Size = new System.Drawing.Size(437, 108);
             this.listBoxUsuariosEncontrados.TabIndex = 10;
             this.listBoxUsuariosEncontrados.SelectedIndexChanged += new System.EventHandler(this.listBoxUsuariosEncontrados_SelectedIndexChanged);
+            // 
+            // buttonBorraUsuario
+            // 
+            this.buttonBorraUsuario.Location = new System.Drawing.Point(707, 55);
+            this.buttonBorraUsuario.Name = "buttonBorraUsuario";
+            this.buttonBorraUsuario.Size = new System.Drawing.Size(81, 23);
+            this.buttonBorraUsuario.TabIndex = 11;
+            this.buttonBorraUsuario.Text = "Borra Usuario";
+            this.buttonBorraUsuario.UseVisualStyleBackColor = true;
+            this.buttonBorraUsuario.Click += new System.EventHandler(this.buttonBorraUsuario_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonBorraUsuario);
             this.Controls.Add(this.listBoxUsuariosEncontrados);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.listBoxRolesUsuario);
@@ -163,6 +175,7 @@
         private System.Windows.Forms.ListBox listBoxRolesUsuario;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ListBox listBoxUsuariosEncontrados;
+        private System.Windows.Forms.Button buttonBorraUsuario;
     }
 }
 

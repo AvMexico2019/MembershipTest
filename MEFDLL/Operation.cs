@@ -12,24 +12,20 @@ namespace MEFDLL
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Operation
     {
-        public Role()
+        public Operation()
         {
-            this.Rel_RoleContentModelAlfresco = new HashSet<Rel_RoleContentModelAlfresco>();
             this.RoleOperation = new HashSet<RoleOperation>();
-            this.UserInRole = new HashSet<UserInRole>();
         }
     
-        public int IDRole { get; set; }
+        public int IDOperation { get; set; }
+        public string OperationName { get; set; }
         public int IDApplication { get; set; }
-        public string RoleName { get; set; }
         public string Description { get; set; }
-        public bool DefaultExterno { get; set; }
+        public string IDExterno { get; set; }
     
         public virtual Application Application { get; set; }
-        public virtual ICollection<Rel_RoleContentModelAlfresco> Rel_RoleContentModelAlfresco { get; set; }
         public virtual ICollection<RoleOperation> RoleOperation { get; set; }
-        public virtual ICollection<UserInRole> UserInRole { get; set; }
     }
 }

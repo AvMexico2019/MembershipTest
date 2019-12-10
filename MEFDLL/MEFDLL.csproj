@@ -51,6 +51,39 @@
     <Compile Include="Application.cs">
       <DependentUpon>ModelMembership.tt</DependentUpon>
     </Compile>
+    <Compile Include="Bitacora.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BitacoraError.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatAreaAdscripcion.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatBitacoraAccion.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CatMenu.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Cat_ContentModelAlfresco.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="C_Applications.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatosFiscales.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Domicilio.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Membership.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Memberships.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
     <Compile Include="ModelMembership.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,14 +99,71 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelMembership.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Operation.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Profiles.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rel_Identificacion.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rel_RoleContentModelAlfresco.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rel_UserDomicilio.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Rel_UserRL.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REPORTE_PDR.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RepresentanteLegal.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="REP_FR_INM.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
     <Compile Include="Role.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RoleOperation.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roles.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Telefono.cs">
       <DependentUpon>ModelMembership.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
       <DependentUpon>ModelMembership.tt</DependentUpon>
     </Compile>
+    <Compile Include="UserConfirmation.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
     <Compile Include="UserInRole.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserSession.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_password.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="user_password2.cs">
+      <DependentUpon>ModelMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usuario_correo_20160502.cs">
       <DependentUpon>ModelMembership.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -82,8 +172,6 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelMembership.Designer.cs</LastGenOutput>
     </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.Config" />
     <None Include="ModelMembership.edmx.diagram">
       <DependentUpon>ModelMembership.edmx</DependentUpon>
@@ -91,19 +179,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ModelMembership.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ModelMembership.Context.cs</LastGenOutput>
       <DependentUpon>ModelMembership.edmx</DependentUpon>
+      <LastGenOutput>ModelMembership.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ModelMembership.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelMembership.edmx</DependentUpon>
       <LastGenOutput>ModelMembership.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

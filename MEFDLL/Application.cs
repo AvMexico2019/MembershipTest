@@ -16,6 +16,8 @@ namespace MEFDLL
     {
         public Application()
         {
+            this.Membership = new HashSet<Membership>();
+            this.Operation = new HashSet<Operation>();
             this.Role = new HashSet<Role>();
         }
     
@@ -28,6 +30,8 @@ namespace MEFDLL
         public bool DefaultExterno { get; set; }
         public bool Visible { get; set; }
     
+        public virtual ICollection<Membership> Membership { get; set; }
+        public virtual ICollection<Operation> Operation { get; set; }
         public virtual ICollection<Role> Role { get; set; }
     }
 }

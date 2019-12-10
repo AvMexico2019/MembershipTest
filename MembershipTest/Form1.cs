@@ -17,7 +17,7 @@ namespace MembershipTest
         Dictionary<int, int> RenglonRol = new Dictionary<int, int>();
         List<Usuarios> ListaUsuarios = new List<Usuarios>();
         List<int> RolesUsuario = new List<int>();
-        int UsuarioSeleccionado;
+        int UsuarioSeleccionado = -1;
 
         public Form1()
         {
@@ -75,7 +75,7 @@ namespace MembershipTest
             listBoxUsuariosEncontrados.Items.Clear();
             foreach (var user in usuarios)
             {
-                listBoxUsuariosEncontrados.Items.Add(user.UserName + "(" + user.IDUser + ")");
+                listBoxUsuariosEncontrados.Items.Add(user.UserName + "(" + user.IDUser + "." + user.IsApproved + "." + user.Deleted + "." + user.IsLockedOut + ")");
                 ListaUsuarios.Add(new Usuarios { IDUser = user.IDUser, UserName = user.UserName });
             }
         }
@@ -128,27 +128,44 @@ namespace MembershipTest
                         break;
                 }
                 ctxUpdate.SaveChanges();
-            }
-           
-            MEFDLL.MembershipEntities ctx = new MEFDLL.MembershipEntities();
-            var rolesUsuario = from rol in ctx.UserInRole
-                               where rol.IDUser == UsuarioSeleccionado
-                               select rol;
-            listBoxRolesUsuario.Items.Clear();
-            foreach (var rolUser in rolesUsuario)
-            {
-                if (ListaRoles.ContainsKey(rolUser.IDRole))
+                var rolesUsuario = from rol in ctxUpdate.UserInRole
+                                   where rol.IDUser == UsuarioSeleccionado
+                                   select rol;
+                listBoxRolesUsuario.Items.Clear();
+                foreach (var rolUser in rolesUsuario)
                 {
-                    listBoxRolesUsuario.Items.Add(ListaRoles[rolUser.IDRole].RoleName);
+                    if (ListaRoles.ContainsKey(rolUser.IDRole))
+                    {
+                        listBoxRolesUsuario.Items.Add(ListaRoles[rolUser.IDRole].RoleName);
+                    }
+                    else
+                        listBoxRolesUsuario.Items.Add("rol " + rolUser.IDRole);
                 }
-                else
-                    listBoxRolesUsuario.Items.Add("rol " + rolUser.IDRole);
             }
+             
+            //MEFDLL.MembershipEntities ctx = new MEFDLL.MembershipEntities();
+          
+           
         }
 
         private void listBoxRolesUsuario_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonBorraUsuario_Click(object sender, EventArgs e)
+        {
+            if (UsuarioSeleccionado > -1)
+            {
+                using (MEFDLL.MembershipEntities ctxUpdate = new MEFDLL.MembershipEntities())
+                {
+                    ctxUpdate.Telefono.Remove(ctxUpdate.Telefono.Single(r => r.Fk_IdUser == UsuarioSeleccionado));
+                    ctxUpdate.Rel_UserDomicilio.Remove(ctxUpdate.Rel_UserDomicilio.Single(r => r.FkIdUser == UsuarioSeleccionado));
+                    ctxUpdate.User.Remove(ctxUpdate.User.Single(r => r.IDUser == UsuarioSeleccionado));
+                    ctxUpdate.SaveChanges();
+                }
+            }
+            
         }
     }
 }
